@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html ng-app="project">
+  <head>
+    <title>Accommodation and Transport</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.5.0.js"></script>
+    <script data-require="angular.js@1.2.x" src="http://code.angularjs.org/1.2.11/angular.js"
+   data-semver="1.2.11"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+     <!--this is datepicker jquery code-->
+     <script>
+         $(function() {
+              $( "#checkin" ).datepicker({minDate : 0, dateFormat: 'dd-mm-yy'});
+              $("#checkout").attr("disabled", "disabled");
+              $( "#checkout" ).datepicker({minDate:0, dateFormat: 'dd-mm-yy'});
+        
+         $( "#checkin" ).on("change",function(){
+          onCheckin();
+          
+           });
+          });
+        function onCheckin(){
+        if($("#checkin").val() !== ""){
+        $("#checkout").removeAttr("disabled");
+        var dateMin = $('#checkin').datepicker("getDate");
+          var rMin = new Date(dateMin.getFullYear(), dateMin.getMonth(), dateMin.getDate() + 0);
+        $("#checkout").datepicker('option', 'minDate', new Date(rMin));
+        }else{
+        $("#checkout").val("");
+        $("#checkout").attr("disabled", "disabled");
+        }
+        }
+     </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <body ng-controller="MainCtrl" class="container"><br>
+    <p><b>Please fill the details</b> All the fields are mandatory*</p>
+    <h4><b>Select*</b></h4>
+    <button class="btn btn1" value = "button" ng-click="show = 1">Accommodation</button>
+    <button  class="btn btn1"   value = "button"ng-click="show = 2">Transport</button>
+    <button  class="btn btn1"  value = "button" ng-click="show =3">Both</button>
+      <div class="form-group" ng-show="show==1" >
+      <!--this is accomodation area!-->
+        <div class="form-group row" >
+            <div class="col-md-3"><h5><b>Destination*</b></h5></div>
+            <div class="col-md-3"><h5><b> Check in*</b></h5></div>
+            <div class="col-md-3"><h5><b> Check out*</b></h5></div>
+            <div class="col-md-3"><h5><b> Near Office*</b></h5></div>
+           <div ng-repeat="item in items">
+            <div class="col-md-3">
+              <input class="form-control" type="text" ng-model="fName" placeholder="Enter Destination" >
+            </div>
+            <div class="col-md-3">
+             <div class="form-group has-feedback">
+              <input class="form-control" type="text" ng-model="checkin"  placeholder="Pick date and time" id="checkin" >
+                <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+             </div>
+            </div>
+            <div class="col-md-3">
+             <div class="form-group has-feedback">
+              <input class="form-control" type="text" ng-model="checkout"  placeholder="Pick date and time" id="checkout" >
+                <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+             </div>
+            </div>
+            <div class="col-md-3">
+             <div class="form-group has-feedback">
+               <select class="form-control">
+                <option value="" disabled selected>Select</option>
+                <option value="Sayhaderipark">Sayhaderi Park</option>
+                <option value="Hinjewari">Hinjewari</option>
+                <option value="Bhoseri">Bhoseri</option>
+                <option value="Mangaldas">Mangaldas</option>
+                <option value="Hadapsar">Hadapsar</option>
+                <option value="Koregaon Park">Koregaon Park</option>
+                <option value="Nagarpata">Nagarpata</option>
+               </select>
+             </div>
+            </div>
+           </div>
+        </div><!--destination div closes here!-->
+              <div class="col-md-3">
+              <button class="btn" ng-click="add()">Add More Trip</button>
+              </div><br><br><br><br><br><br><br>
+
+                <h4>Travellers *</h4>
+               <div class="col-md-12">
+              <p><a href="#">
+          <span class="glyphicon glyphicon-info-sign"></span></a>
+         The travellers will be applicable for all the trips raised in a single travel request. In case of change in set of Travellers we request you to raise another traveller request.</p>
+               </div>
+             <div ng-controller="MainCtrl2">
+              <button class="btn" ng-click="show = 11">Self</button>
+              <button class="btn" ng-click="show = 12">Associate</button>
+              <button class="btn" ng-click="show =13">Guest</button>
+              <button class="btn" ng-click="show = 14">Dependents</button>
+              <button class="btn" ng-click="show = 15">New Joinee</button>
+               <div class="form-group" ng-show="show==11" ><!--self div start!-->
+                 <div class="col-md-2"><h5><b>Name:</h5>
+                   <select ng-model="selectedemp" ng-options="y.name for (x, y) in employees"></select>
+                 </div>
+                <div class="col-md-2"><h5><b>Employee Id: </b></h5>{{selectedemp.Employee}}</div>
+                <div class="col-md-2"><h5><b>Phone Number:</b></h5>{{selectedemp.phone}}</div>
+                <div class="col-md-2"><h5><b>Mail To:</b></h5>{{selectedemp.mail}}</div>
+                <div class="col-md-2"><button class=" btn" id= "1" ng-disabled="!selectedemp">Ok</button></div>
+                 </div><!--till here self!--><br><br>
+
+         <div class="form-group"  ng-show="show==12" ><!--from here associate contents!-->
+           <div class="col-md-3">
+             <select ng-model="selected" ng-options="y.name for (x, y) in states"></select>
+                {{selected.postcode}} <br><button class="btn" id="2" ng-disabled="!selected">submit</submit>
+            </div>
+           </div>
+          </div><!--till here associates!-->
+
+                <div class="form-group" ng-show="show==13" ></div>
+               <div class="form-group" ng-show="show==14" ></div>
+            </div><!--till here accomodation-->
+          </div>
+         <div class="form-group" ng-show="show==2" ><!--transport button starts-->
+            <div class="form-group row" >
+            <div class="col-md-3"><h5><b>Select Car Type*</b></h5></div>
+            <div class="col-md-3"><h5><b>Pickup Location*</b></h5></div>
+            <div class="col-md-3"><h5><b> Pickup Time*</b></h5></div>
+           <div class="col-md-3"><h5><b>Drop Location*</b></h5></div>
+         <form name="newDiscoveryForm">
+           <div class="col-md-3">
+           <div class="form-group has-feedback">
+            <select class="form-control" name="someName" ng-model="someModel"ng-required="true" >
+             <option value="" disabled selected>Please Select Car</option>
+             <option value="volvo">Prime</option>
+             <option value="saab">Micro</option>
+             <option value="opel">Mini</option>
+             <option value="audi">Luxury</option>
+            </select> </div>
+           </div>
+            <div class="col-md-3">
+             <input class="form-control"  name="somName" ng-model="someMode1l" ng-required="true" type="text"  placeholder="Enter Pickup Location" >
+            </div>
+            <div class="col-md-3">
+             <div class="form-group has-feedback">
+              <input class="form-control"  name="soeName" ng-model="someModewl" ng-required="true"type="time"placeholder="Choose Pickup Time" >
+             </div>
+            </div>
+           <div class="col-md-3">
+            <div class="form-group has-feedback">
+              <input class="form-control"   name="smeName" ng-model="someModegl" ng-required="true"type="text" placeholder="Enter Drop Location">
+            </div>
+           </div>
+           <div class="col-md-3">
+            <button class="btn" id="3" type="submit" ng-disabled="newDiscoveryForm.$invalid">Book a ride</button>
+           </div>
+         </form>
+            </div>
+         </div><!--till here transport-->
+         <div class="form-group" ng-show="show==3" ><!--both button commands-->
+          <div class="form-group row" >
+          <div class="col-md-12"><h2><u>Accommodation</u></h2></div>
+          <div class="col-md-3"><h5><b>Destination*</b></h5></div>
+          <div class="col-md-3"><h5><b> Check in*</b></h5></div>
+          <div class="col-md-3"><h5><b> Check out*</b></h5></div>
+          <div class="col-md-3"><h5><b> Near Office*</b></h5></div>
+         </div>
+         <div ng-repeat="item in items">
+         <div class="form-group row" >
+         <div class="col-md-3">
+          <input class="form-control" type="text" ng-model="fName" placeholder="Enter Destination" >
+         </div>
+        <div class="col-md-3">
+         <div class="form-group has-feedback">
+          <input class="form-control" type="text" ng-model="checkin" placeholder="Pick date and time" id="checkin" >
+         <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+         </div>
+        </div>
+        <div class="col-md-3">
+         <div class="form-group has-feedback">
+       <input class="form-control" type="text" ng-model="checkout" 
+        placeholder="Pick date and time" id="checkout" >
+       <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+       </div>
+       </div>
+       <div class="col-md-3">
+       <div class="form-group has-feedback">
+       <select class="form-control">
+        <option value="" disabled selected>Select</option>
+        <option value="Sayhaderipark">Sayhaderi Park</option>
+        <option value="Hinjewari">Hinjewari</option>
+        <option value="Bhoseri">Bhoseri</option>
+        <option value="Mangaldas">Mangaldas</option>
+        <option value="Hadapsar">Hadapsar</option>
+        <option value="Koregaon Park">Koregaon Park</option>
+        <option value="Nagarpata">Nagarpata</option>
+        </select> </div>
+        </div>
+       </div>
+      </div>
+      <div class="form-group row" >
+      <div class="col-md-12"><h2><u>Transportation</u></h2></div>
+      <div class="col-md-3"><h5><b>Select Car Type*</b></h5></div>
+      <div class="col-md-3"><h5><b>Pickup Location*</b></h5></div>
+      <div class="col-md-3"><h5><b> Pickup Time*</b></h5></div>
+      <div class="col-md-3"><h5><b>Drop Location*</b></h5></div>
+      </div>
+      <div class="form-group row" >
+      <div class="col-md-3">
+      <div class="form-group has-feedback">
+      <select class="form-control">
+        <option value="" disabled selected>Please Select Car</option>
+        <option value="volvo">Prime</option>
+        <option value="saab">Micro</option>
+        <option value="opel">Mini</option>
+        <option value="audi">Luxury</option>
+      </select> </div>
+        </div>
+       <div class="col-md-3">
+          <input class="form-control" type="text" placeholder="Enter Pickup Location" >
+        </div>
+        <div class="col-md-3">
+       <div class="form-group has-feedback">
+        <input class="form-control" type="time" ng-model="pickup" placeholder="Choose Pickup Time" id="pickup" >
+          </div>
+        </div>
+        <div class="col-md-3">
+         <div class="form-group has-feedback">
+          <input class="form-control" type="text" placeholder="Enter Drop Location" id="checkout" >
+         </div>
+        </div>
+      </div>
+     </div><!--both is till here-->
+   
+   <script src= "myquery.js"></script>
+  </body>
+</html>
