@@ -1,5 +1,6 @@
 # Accommodation and Transport booking
-Room and cab booking
+Room and cab booking.
+
 This website provides the facilities of hotel booking and cab booking for the Employees of a company.
 
 Employees can choose among three buttons; 
@@ -23,9 +24,13 @@ The files:
 -myquery.js
 
 •	myquery.js contains all javascript codes.
-•	Bootstrap Datepicker code is in index.html
-•	Two Controllers ; MainCtrl1 and MainCtrl2 exist. 
-•	Function are there for color change  
+
+•	Bootstrap Datepicker code is in index.html.
+
+•	Two Controllers ; MainCtrl1 and MainCtrl2 exist.
+
+•	Function are there for color change.
+
 •	Functions for alerts on clicking buttons.
 
 
